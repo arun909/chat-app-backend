@@ -1,18 +1,22 @@
 require("dotenv").config();
 
+const http = require("http");
 const app = require("./app");
 const connectDB = require("./config/db");
+const { initSocket } = require("./socket");
 
 const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
-  await connectDB();   // connect DB first
+  await connectDB();
 
-//   app.get("/", (req, res) => {
-//   res.send("Chat App Backend Running 🚀");
-// });
+  // Create HTTP server
+  const server = http.createServer(app);
 
-  app.listen(PORT, () => {
+  // Initialize Socket.io
+  initSocket(server);
+
+  server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
 };
