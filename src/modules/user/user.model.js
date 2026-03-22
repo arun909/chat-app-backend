@@ -31,6 +31,12 @@ const userSchema = new mongoose.Schema(
       default: ""
     },
 
+    bio: {
+      type: String,
+      maxlength: 200,
+      default: ""
+    },
+
     isOnline: {
       type: Boolean,
       default: false
@@ -45,9 +51,9 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-// Indexes for faster search
-userSchema.index({ username: 1 });
-userSchema.index({ email: 1 });
+// Indexes for faster search - Redundant as unique: true already creates indexes
+// userSchema.index({ username: 1 });
+// userSchema.index({ email: 1 });
 
 const User = mongoose.model("User", userSchema);
 
